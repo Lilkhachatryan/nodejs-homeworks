@@ -2,6 +2,7 @@ const validator = require('validator');
 const shortid = require('shortid');
 const errorHandler = require('../utils/errorHandler');
 const fs = require('fs').promises;
+const { UsersModel } = require('chat-mongo-db');
 
 const {
     generateJWToken,
@@ -9,14 +10,16 @@ const {
     generateHashPassword
 }  = require('../services/authService');
 
-const register = async (req, res) => {
+const register = async (ctx) => {
     try {
-        const { fName, lName, email, password } = req.body;
+        const { firstName, lastName, email, password } = ctx.request.body;
 
-        if (!(fName && lName && email && password)) {
-            return res.status(400).json({
+        if (!(firstName && lastName && email && password)) {
+            ctx.status = 400;
+            ctx.body = {
                 message: 'Please fill required fields.'
-            })
+            };
+            return
         }
 
         let users = await fs.readFile('./users.json', 'utf8');
@@ -24,50 +27,61 @@ const register = async (req, res) => {
 
         if (!users[email]) {
             if (!validator.isEmail(email)) {
-                return res.status(400).json({
+                ctx.status = 400;
+                ctx.body = {
                     message: 'Email is not valid.'
-                })
+                };
+                return
             }
 
             if (password.length < 8) {
-                return res.status(400).json({
+                ctx.status = 400;
+                ctx.body = {
                     message: 'Password should be greater than 8 characters.'
-                })
+                };
+                return
             }
 
             let user = {
                 id: shortid.generate(),
-                fName,
-                lName,
+                firstName,
+                lastName,
                 email,
                 password: generateHashPassword(password)
             };
+
             users[email] = user;
 
             await fs.writeFile('./users.json', JSON.stringify(users));
 
-            return res.status(201).json({
+            ctx.status = 201;
+            ctx.body = {
                 token: generateJWToken(user),
-                user
-            });
+                // user
+            };
         } else {
-            return res.status(400).json({
+            ctx.status = 400;
+            ctx.body = {
                 message: 'User with the same email already exists.'
-            })
+            };
         }
     } catch (e) {
-        return errorHandler(res, e);
+        return errorHandler(ctx, e);
     }
 };
 
-const login = async (req, res) => {
+const login = async (ctx) => {
     try {
-        const { email, password } = req.body;
+        const { email, password } = ctx.request.body;
+        const test = await UsersModel.find({});
+        console.log('test', test);
 
         if (!(email && password)) {
-            return res.status(400).json({
+            ctx.status = 400;
+            ctx.body = {
                 message: 'Please fill required fields.'
-            })
+            };
+            return
         }
 
         let users = await fs.readFile('./users.json', 'utf8');
@@ -76,22 +90,28 @@ const login = async (req, res) => {
 
         if (user) {
             if (!compareHashPassword(password, user.password)) {
-                return res.status(400).json({
+                ctx.status = 400;
+                ctx.body = {
                     message: 'Given password is invalid.'
-                })
+                };
+                return
             }
 
-            return res.status(200).json({
+            delete user.password;
+            ctx.status = 200;
+            ctx.body = {
                 token: generateJWToken(user),
-                success: true
-            });
+                success: true,
+                user
+            };
         } else {
-            return res.status(400).json({
+            ctx.status = 400;
+            ctx.body = {
                 message: 'User with given email doesn\'t exists.'
-            })
+            };
         }
     } catch (e) {
-        return errorHandler(res, e);
+        return errorHandler(ctx, e);
     }
 };
 
