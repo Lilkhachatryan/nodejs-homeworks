@@ -1,0 +1,124 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+a {
+  color: #17a2b8!important;
+  &:hover {
+    color: #138496!important;
+  }
+}
+
+.jumbotron a {
+  word-break: break-all;
+}
+
+.btn {
+  &.btn-link {
+    color: #17a2b8;
+    &:hover {
+      color: #138496;
+    }
+  }
+}
+
+.input-error {
+  border-color: #ff0000!important;
+}
+
+.text-error {
+  color: #ff0000;
+}
+
+.PageContainer {
+  margin-top: 60px;
+  padding: 10px 40px;
+  width: 100%;
+  height: auto;
+}
+
+#root {
+  width: 100%;
+  height: calc(100vh - 60px);
+}
+
+.messagesForm {
+  form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 90%; }
+  form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+  form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+  #messages { list-style-type: none; margin: 0; padding: 0; }
+  #messages li { padding: 5px 10px; align-items: center }
+  #messages li:nth-child(odd) { background: #eee; }
+  #messages li:nth-child(even) { flex-direction: row-reverse; }
+  #messages { margin-bottom: 40px }
+}
+
+
+.user-avatar {
+  display: inline-block;
+  position: relative;
+  padding-right: 10px;
+}
+
+.avatar {
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+}
+
+.status-overlay {
+  background-color: white;
+  position: absolute;
+  top: 33px;
+  right: 42px;
+  z-index: 0;
+  padding: 2px;
+  height: 10px;
+  border-radius: 50%;
+  width: 10px;
+  border: 0;
+
+  &.success {
+    background: #4BAE4F;
+  }
+
+  &.waiting {
+    color: #808080;
+  }
+}

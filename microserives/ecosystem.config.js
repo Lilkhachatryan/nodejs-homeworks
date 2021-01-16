@@ -1,10 +1,8 @@
 module.exports = {
   apps : [{
     name: "chat-api",
-    // "cwd": "./chat-api",
-    "script": "./chat-api/package.json",
-    // "args": "start",
-    // script: "./chat-api/app.js",
+    cwd: "./chat-api",
+    script: "./app.js",
     watch: true,
     env: {
       NODE_ENV: "production",
@@ -12,19 +10,19 @@ module.exports = {
     }
   },{
     name: "chat-app",
-    // cwd: "./chat-app",
+    cwd: "./chat-app",
     // "script": "./chat-app/package.json",
     watch: true,
-    // script: "./chat-app/node_modules/react-scripts/scripts/start.js",
-    script    : 'npm',
-    args      : 'run start:production',
+    script: "./node_modules/react-scripts/scripts/start.js",
+    // script    : 'npm',
+    // args      : 'run start:production',
     env: {
       NODE_ENV: 'production'
     }
   },{
     name: "chat-socket",
-    // cwd: "./chat-socket",
-    "script": "./chat-socket/package.json",
+    cwd: "./chat-socket",
+    script: "./socket.js",
     watch: true,
     // "args": "start",
     env: {

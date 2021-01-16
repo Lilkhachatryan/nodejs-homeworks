@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "stable"
+install:
+  - npm install -g mocha
+  - npm install
+#script:
+#  - npm install
+#  - npm run test
+deploy:
+  provider: heroku
+  edge: true
+  app: microservices-chat-api
+  skip_cleanup: true
+  api_key:
+    secure: "MIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEAsY+UHybVboLJNwKrEPc9 i9wC0EEfiA/RDQ31gZgM+Jl6UXrN/TK6c5PJIQ6IlUvH4614WmKHUwwkU9ykrl/N hweFS7FvjYPR/Jb78Br6EEOX3VZAV/Td54JH5TDw2YK+B9dKp3G3iT1Z83505Vwp 3kNuC+4aexL4+4lNHoPg0VcTVt0ZG+l243I+ZDDBKmxwHC32a9nbgrPmHfczmk2i kDZjyA/BduOVIxWAgYzI2cBDR8WDbX51FmlHaKGbRQURktKja4JZKI0FUa+LjQvM jWt+g3Z3Hq6dk8LwgvViGGMCwCr0x5OrBa7EIRxDO4zoP0eF9gkmurP/joDmFWpB JIwYVaaIS8Gs/bdL/RdDSe1ZpN2Z+poD0mRv1Pikuavyu0Vc5U8Z/N0ypNPtbok0 4vzdkUoOD6s+ta+JErw4si0SeCfpa4LlHfbqeRMa6SwO1Yl8l1InXKP2unaXAgXZ wz47ppGT6KGU0UmfMXd3acAqMzf03JY8YiyTDY6GNKXC0h5d0z7RfYnrjFXCfCQa mUursKNZbIZt5zHyr3/OzdjLXFgpWeXRe6bvTacuTvF7WIgpVIONlZpGV9mdMilo OT922Qjow/+N/u+7pAfIcEaBXTDGAx1cb6LhEDrdBASTuRqDmpXbASjKf1lPVOzj O8mxEh5OvHt+HWrrBfuXP/MCAwEAAQ=="
+  on:
+    repo: Lilkhachatryan/chat-api

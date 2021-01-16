@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "stable"
+branches:
+  only:
+    - master
+install:
+  - npm install -g mocha
+  - npm install
+#script:
+#  - npm install
+#  - npm run test
+deploy:
+  provider: heroku
+  app: chat-api
+  api_key:
+    secure: "5e9215eb-51a5-4818-a75c-2267146eef50"
+  on:
+    branch: master
